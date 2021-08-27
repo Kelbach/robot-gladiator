@@ -12,6 +12,8 @@ var fight = function() {
     window.alert("Welcome to Robot Gladiators!");
 }
 
+fight();
+
 //subtract player attack from enemy health and update enemy health
 enemyHealth = enemyHealth - playerAttack;
 
@@ -19,6 +21,14 @@ enemyHealth = enemyHealth - playerAttack;
 console.log(
     playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
 );
+
+//check enemyhealth
+if (enemyHealth <= 0) {
+    window.alert(enemyName + " has been defeated.");
+}
+else {
+    window.alert(enemyName + " has " + enemyHealth + " health remaining.");
+}
 
 //subtract enemy attack from player health and update player health
 playerHealth = playerHealth- enemyAttack;
@@ -28,4 +38,10 @@ console.log(
     enemyName + " attacked " + playerName + ". " + playerName + " now has "+ playerHealth + " health remaining."
 );
 
-fight();
+//check playerHealth
+if (playerHealth <= 0) {
+    window.alert(playerName + " has been defeated.");
+}
+else {
+    window.alert(playerName + " has " + playerHealth + " health remaining.");
+}
