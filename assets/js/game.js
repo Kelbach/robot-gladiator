@@ -14,7 +14,7 @@ var enemyAttack = 12;
 // *fight all enemy robots
 
 var fight = function(enemyName) {
-    while(enemyHealth > 0) {
+    while(playerHealth > 0 && enemyHealth > 0) {
         
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
         if (promptFight === "fight" || promptFight === "FIGHT") {
@@ -30,6 +30,7 @@ var fight = function(enemyName) {
         //check enemyhealth
         if (enemyHealth <= 0) {
             window.alert(enemyName + " has been defeated.");
+            break;
         }
         else {
             window.alert(enemyName + " has " + enemyHealth + " health remaining.");
@@ -46,29 +47,26 @@ var fight = function(enemyName) {
         //check playerHealth
         if (playerHealth <= 0) {
             window.alert(playerName + " has been defeated.");
+            break;
         }
         else {
             window.alert(playerName + " has " + playerHealth + " health remaining.");
         }
 
         //if player skips
-        } else if (promptFight === "skip" || promptFight ==="SKIP") {
+        } if (promptFight === "skip" || promptFight ==="SKIP") {
             //confirm
             var confirmSkip = window.confirm("Are you sure you'd like to skip?");
 
             //if true, leave fight
             if (confirmSkip) {
-                window.alert (playerName + " has decided  to skip this fight.");
+                window.alert (playerName + " has decided to skip this fight.");
                 //subtract money
-                playerMoney = playerMoney - 2;
-            }
-            //if false, ask again
-            else {
-                fight();
+                playerMoney = playerMoney - 10;
+                console.log("playerMoney", playerMoney);
+                break;
             }
 
-        } else {
-            window.alert("You need to choose a valid option. Try again.")
         }
     }
 }
