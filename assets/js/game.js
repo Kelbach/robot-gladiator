@@ -27,7 +27,8 @@ var fight = function(enemyName) {
             if (confirmSkip) {
                 window.alert (playerName + " has decided to skip this fight.");
                 //subtract money
-                playerMoney = playerMoney - 10;
+                //playerMoney = playerMoney - 10;
+                playerMoney = Math.max( 0 , playerMoney - 10 );
                 console.log("playerMoney", playerMoney);
                 break;
             }
@@ -35,7 +36,8 @@ var fight = function(enemyName) {
         }
 
         //subtract player attack from enemy health and update enemy health
-        enemyHealth = enemyHealth - playerAttack;
+        //enemyHealth = enemyHealth - playerAttack;
+        enemyHealth = Math.max( 0 , enemyHealth - playerAttack );
 
         //log a resulting message to the console
         console.log(
@@ -53,7 +55,8 @@ var fight = function(enemyName) {
         }
 
         //subtract enemy attack from player health and update player health
-        playerHealth = playerHealth- enemyAttack;
+        //playerHealth = playerHealth- enemyAttack;
+        playerHealth = Math.max( 0 , playerHealth -enemyAttack );
 
         //log a resulting message to the console
         console.log(
@@ -165,4 +168,5 @@ var shop = function() {
           break;
     }
 }
+
 startGame();
