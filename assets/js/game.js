@@ -1,17 +1,19 @@
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
-var playerAttack = 10;
+//var playerAttack = 10;
 var playerMoney = 10;
 
-console.log(playerName, playerAttack, playerHealth);
+console.log(playerName, playerHealth);
 
 var enemyNames = ["Roborto", "Amy Android", "RoboTrumble"];
-var enemyHealth = 50;
+//var enemyHealth = 50;
 var enemyAttack = 12;
 
-//game states
-//"WIN" - player defeats all robits
-// *fight all enemy robots
+var randomNumber = function(min , max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+  
+    return value;
+};
 
 var fight = function(enemyName) {
     while(playerHealth > 0 && enemyHealth > 0) {
@@ -35,9 +37,10 @@ var fight = function(enemyName) {
 
         }
 
+        var damage = randomNumber(playerAttack - 3, playerAttack);
         //subtract player attack from enemy health and update enemy health
         //enemyHealth = enemyHealth - playerAttack;
-        enemyHealth = Math.max( 0 , enemyHealth - playerAttack );
+        enemyHealth = Math.max( 0 , enemyHealth - damage );
 
         //log a resulting message to the console
         console.log(
@@ -54,6 +57,7 @@ var fight = function(enemyName) {
             window.alert(enemyName + " has " + enemyHealth + " health remaining.");
         }
 
+        var damage = randomNumber(enemyAttack - 3, enemyAttack);
         //subtract enemy attack from player health and update player health
         //playerHealth = playerHealth- enemyAttack;
         playerHealth = Math.max( 0 , playerHealth -enemyAttack );
@@ -85,7 +89,7 @@ var startGame = function() {
         if (playerHealth > 0) {
             window.alert("Welcome to Robot Gladiator! Round " + (i + 1));
             var pickedEnemyName = enemyNames[i];
-            enemyHealth = 50;
+            enemyHealth = randomNumber(40 , 60);
             fight(pickedEnemyName);
             if (playerHealth > 0 && i < enemyNames.length - 1) {
                 var storeConfirm = window.confirm("Shop?");
