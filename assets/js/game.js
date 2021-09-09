@@ -11,7 +11,7 @@ var getPlayerName = function() {
         name = prompt("What is your robot's name?");
     }
 
-    console.log("Your robot's name is" + name);
+    console.log("Your robot's name is " + name);
     return name;
 };
 
@@ -68,6 +68,12 @@ var enemyInfo = [
 //var enemy.attack = 12;
 
 var fight = function(enemy) {
+    
+    var isPlayerTurn = true;
+    if (Math.random() > 0.5) {
+        isPlayerTurn = false;
+    }
+
     var fightOrSkip = function() {
         // ask player if they'd like to fight or skip using fightOrSkip function
         var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
@@ -98,47 +104,55 @@ var fight = function(enemy) {
     console.log(enemy);
     while(playerInfo.health > 0 && enemy.health > 0) {
         
-        if (fightOrSkip()) {
+        if (isPlayerTurn) {
+            if (fightOrSkip()) {
             break;
-        }
+            }
+        
 
-        var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
-        //subtract player attack from enemy health and update enemy health
-        //enemy.health = enemy.health - playerInfo.attack;
-        enemy.health = Math.max( 0 , enemy.health - damage );
+            var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+            //subtract player attack from enemy health and update enemy health
+            //enemy.health = enemy.health - playerInfo.attack;
+            enemy.health = Math.max( 0 , enemy.health - damage );
 
-        //log a resulting message to the console
-        console.log(
-            playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining."
-        );
+            //log a resulting message to the console
+            console.log(
+                playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining."
+            );
+        
 
-        //check enemyhealth
-        if (enemy.health <= 0) {
-            window.alert(enemy.name + " has been defeated.");
-            playerInfo.money = playerInfo.money + 20;
-            break;
-        }
-        else {
-            window.alert(enemy.name + " has " + enemy.health + " health remaining.");
-        }
+            //check enemyhealth
+            if (enemy.health <= 0) {
+                window.alert(enemy.name + " has been defeated.");
+                playerInfo.money = playerInfo.money + 20;
+                break;
+            }
+            else {
+                window.alert(enemy.name + " has " + enemy.health + " health remaining.");
+            }
 
-        var damage = randomNumber(enemy.attack - 3, enemy.attack);
-        //subtract enemy attack from player health and update player health
-        //playerInfo.health = playerInfo.health- enemy.attack;
-        playerInfo.health = Math.max( 0 , playerInfo.health - enemy.attack );
+        } else {
+            var damage = randomNumber(enemy.attack - 3, enemy.attack);
+            //subtract enemy attack from player health and update player health
+            //playerInfo.health = playerInfo.health- enemy.attack;
+            playerInfo.health = Math.max( 0 , playerInfo.health - enemy.attack );
 
-        //log a resulting message to the console
-        console.log(
-            enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has "+ playerInfo.health + " health remaining."
-        );
+            //log a resulting message to the console
+            console.log(
+                enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has "+ playerInfo.health + " health remaining."
+            );
 
-        //check playerInfo.health
-        if (playerInfo.health <= 0) {
-            window.alert(playerInfo.name + " has been defeated.");
-            break;
-        }
-        else {
-            window.alert(playerInfo.name + " has " + playerInfo.health + " health remaining.");
+            //check playerInfo.health
+            if (playerInfo.health <= 0) {
+                window.alert(playerInfo.name + " has been defeated.");
+                break;
+            }
+            else {
+                window.alert(playerInfo.name + " has " + playerInfo.health + " health remaining.");
+            }
+
+            //switches turns
+            isPlayerTurn = !isPlayerTurn;
         }
     }
 }
@@ -197,16 +211,18 @@ var shop = function() {
         case 1:
             playerInfo.refillHealth();
             break;
+            //shop();
         case 2:
             playerInfo.upgradeAttack();
-          break;
+            break;
+            //shop();
         case 3:
-          window.alert("Leaving the store.");
-          break;
+            window.alert("Leaving the store.");
+            break;
         default:
-          window.alert("You did not pick a valid option. Try again.");
-          shop();
-          break;
+            window.alert("You did not pick a valid option. Try again.");
+            shop();
+            break;
     }
 }
 
