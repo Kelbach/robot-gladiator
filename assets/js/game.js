@@ -91,7 +91,6 @@ var fight = function(enemy) {
             // subtract money from playerMoney for skipping
             playerInfo.playerMoney = playerInfo.money - 10;
             return true;
-            shop();
           }
         }
     }
@@ -190,30 +189,22 @@ var endGame = function() {
 
 var shop = function() {
     var shopOptionPrompt = window.prompt(
-        "You can REFILL your Health, UPGRADE your attack, or LEAVE the store. What'll it be? Enter text: 'REFILL', 'UPGRADE', or 'LEAVE'"
+        "You can replenish your Health by typing '1', upgrade your Attack by typing '2', or leave the store by typing '3'. What'll it be? Enter: '1', '2', or '3'."
     );
 
+    shopOptionPrompt = parseInt(shopOptionPrompt);
     switch (shopOptionPrompt) {
-        case "REFILL":
-        case "refill":
+        case 1:
             playerInfo.refillHealth();
             break;
-
-        case "UPGRADE":
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
           break;
-
-        case "LEAVE":
-        case "leave":
+        case 3:
           window.alert("Leaving the store.");
-      
-          // do nothing, so function will end
           break;
         default:
           window.alert("You did not pick a valid option. Try again.");
-      
-          // call shop() again to force player to pick a valid option
           shop();
           break;
     }
