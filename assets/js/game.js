@@ -175,7 +175,7 @@ var startGame = function() {
                 }
             }
             else {
-                window.alert("You have failed. GAME OVER.");
+                window.alert("GAME OVER.");
                 break;
             }
         }
@@ -185,21 +185,34 @@ var startGame = function() {
 };
 
 var endGame = function() {
-    if (playerInfo.health > 0 ) {
-    window.alert("You have survived and earned yourself " + playerInfo.money + " money cash dollars.");
-    }
-    else {
-        window.alert("You've lost your robot in battle. You made out " + playerInfo.money + " cash money dollars.");
-    }
+    window.alert("The game has now ended. Let's see how you did!");
+  
+    // check localStorage for high score, if it's not there, use 0
+    var highScore = localStorage.getItem("highscore");
+        if (highScore === null) {
+        highScore = 0;
+        }
+        // if player has more money than the high score, player has new high score!
+        if (playerInfo.money > highScore) {
+        localStorage.setItem("highscore", playerInfo.money);
+        localStorage.setItem("name", playerInfo.name);
     
-    var playAgainConfirm = window.confirm("Try Again?");
-        if (playAgainConfirm) {
-            startGame();
-        }
+        alert(playerInfo.name + " now has the high score of " + playerInfo.money + "!");
+        } 
         else {
-            window.alert("Thank you for playing Robot Gladiator! I hope to see you in the ring again soon.")
+        alert(playerInfo.name + " did not beat the high score of " + highScore + ". Maybe next time!");
         }
-}
+    
+        // ask player if they'd like to play again
+        var playAgainConfirm = window.confirm("Try again");
+    
+        if (playAgainConfirm) {
+        startGame();
+        } 
+        else {
+        window.alert("GAME OVER");
+        }
+  };
 
 var shop = function() {
     var shopOptionPrompt = window.prompt(
